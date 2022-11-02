@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import ils1 from '../../assets/images/illustrations/signup-2.svg'
 import presolvedLogo from '../../assets/images/presolved-small-logo.png'
 import region from '../../assets/images/region.png'
+import { payload } from '../payload';
 
 const SelectAccount = (props) => {
 
@@ -14,7 +15,7 @@ const SelectAccount = (props) => {
         setState({ ...state, step1: values });
         next();
     };
-
+    const regions=payload.regions
 
     return (
         <div style={{ padding: '15px', }} >
@@ -84,20 +85,15 @@ const SelectAccount = (props) => {
                                         >
                                             <Input />
                                         </Form.Item>
-                                        <section className='region-map'>
-                                            <img src={region} />
+                                        <section className='region-map' style={{background: `url("${region}") right  no-repeat`,backgroundSize:'contain'}}>
+                                           
                                             <Form.Item
                                                 label="Choose Region"
                                                 name={['account', 'selfManagedAccount', 'region']}
                                                 rules={[{ required: true, message: 'Please choose the preferred region!' }]}
                                             >
-                                                <Select dat>
-                                                    <Option value="US East (Ohio)">us-east-2</Option>
-                                                    <Option value="US East (Ohio)">us-east-1</Option>
-                                                    <Option value="US East (Ohio)">us-west-1</Option>
-                                                    <Option value="US East (Ohio)">us-west-2</Option>
-                                                    <Option value="US East (Ohio)">af-south-1</Option>
-                                                    <Option value="US East (Ohio)">ap-east-1</Option>
+                                                <Select options={regions} allowClear showAction={true}>
+                                                   
                                                 </Select>
                                             </Form.Item>
                                         </section>
@@ -110,7 +106,7 @@ const SelectAccount = (props) => {
                                 </Form>
                             }
                             {
-                                state.accountType == 1 &&
+                                state.accountType == 1 && 
                                 <Form size='large' layout='vertical' labelCol={{ span: 8 }} wrapperCol={{ span: 14 }} onFinish={onFinish} autoComplete="off" >
                                     <Form.Item style={{ display: 'none' }} name={['account', 'type']} initialValue={state.accountType == 0 ? 'selfManagedAccount' : 'presolvedAccount'} >
                                         <Input type='hidden' />
@@ -129,7 +125,18 @@ const SelectAccount = (props) => {
                                         <Form.Item label="Email Id" name="presolvedEmailId" rules={[{ required: true, message: 'Please input your email id!' }]} >
                                             <Input />
                                         </Form.Item>
-
+                                        <section className='region-map' style={{background: `url("${region}") right  no-repeat`,backgroundSize:'contain'}}>
+                                           
+                                           <Form.Item
+                                               label="Choose Region"
+                                               name={['account', 'selfManagedAccount', 'region']}
+                                               rules={[{ required: true, message: 'Please choose the preferred region!' }]}
+                                           >
+                                               <Select options={regions} allowClear showAction={true}>
+                                                  
+                                               </Select>
+                                           </Form.Item>
+                                       </section>
                                         <Form.Item>
                                             <Button type="primary" htmlType="submit">
                                                 Next

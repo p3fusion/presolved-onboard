@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 
 const { Content } = Layout;
 const CreateNewTemplate = (props) => {
-    const dispatch = useDispatch
+ 
 
     const [form] = Form.useForm();
     const initialState = {
@@ -18,8 +18,10 @@ const CreateNewTemplate = (props) => {
         record: props?.location?.state?.record || null,
     }
     useEffect(() => {
+        console.log(props.location.state); 
         if (props.location.state.edit) {
             let { record } = props.location.state
+            console.log({record});
             let newFormat = {
                 ...record,
                 fields: JSON.parse(record.attributes)
@@ -27,9 +29,10 @@ const CreateNewTemplate = (props) => {
             form.setFieldsValue({
                 task: newFormat              
             })
-            setState({...state,items:newFormat.fields})            
+            setState({...state,items:newFormat.fields})           
+            
         }
-    }, []);
+    }, [props.location.state]);
 
 
     const fields = (

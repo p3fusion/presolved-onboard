@@ -1,16 +1,31 @@
-import { Button, Card, Col, Divider, Form, Input, List, Radio, Result, Row, Select, Space, Steps, Switch, Typography } from 'antd';
+import { Button, Card, Col, Divider, Form, Input, List, Radio, Result, Row, Select, Space, Steps, Switch, Typography, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { MailOutlined, MessageOutlined, PhoneOutlined, ApartmentOutlined, WechatOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import {PlusOutlined, MailOutlined, MessageOutlined, PhoneOutlined, ApartmentOutlined, WechatOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import ils1 from '../../assets/images/illustrations/signup-4.svg';
 
 
 const { Step } = Steps;
+
 const ChooseChannel = (props) => {
 
     const { next, state, setState, prev } = props
+    const [tab, activeTab] = useState("phone")
 
     const onFinish = (e) => {
-        console.log({ e });
+        setState({
+            ...state,
+            step2: e
+        })
+        next();
+    }
+
+    const onFinishFailed = (e) => {
+        console.log({ failures: e });
+        if (e.errorFields.length > 0) {
+            let getErrorTab = e.errorFields[0].name[1];
+            activeTab(getErrorTab)
+
+        }
     }
 
     return (
@@ -90,56 +105,49 @@ const ChooseChannel = (props) => {
                     </Row>
                     <Row style={{ marginTop: 30 }}>
                         <Col span={22}>
-                            <Form name="form2" layout='vertical' size='large' onFinish={onFinish}
+                            <Form name="form2" layout='vertical' size='large' onFinish={onFinish} onFinishFailed={onFinishFailed}
                                 initialValues={{
                                     channel: {
                                         number: state.channel.phone.numberType
                                     }
                                 }}
                             >
-                                <Steps direction="vertical" current={[]} >
+                                <Tabs activeKey={tab ? tab : null} onChange={(e) => activeTab(e)}>
                                     {state.channel.isPhoneSelected &&
-                                        <Step status='finish' subTitle="Update all required information" title="Phone" icon={<PhoneOutlined style={{ fontSize: 30 }} />}
-                                            tailContent={<p>Please choose the services</p>}
-                                            description={<RenderPhone {...props} />}
-                                        />
-
+                                        <Tabs.TabPane tab="Phone" key="phone"  >
+                                            <RenderPhone {...props} />
+                                        </Tabs.TabPane>
                                     }
-
                                     {state.channel.isEmailSelected &&
-                                        <Step status='finish' subTitle="Update all required information" title="E-mail"
-                                            icon={<MailOutlined style={{ fontSize: 30 }} />}
-                                            tailContent={<p>Please choose the services</p>}
-                                            description={<RenderEmail {...props} />}
-                                        />
+                                        <Tabs.TabPane tab="Email" key="email"  >
+                                            <RenderEmail {...props} />
+                                        </Tabs.TabPane>
+
                                     }
                                     {state.channel.isChatSelected &&
-                                        <Step status='finish' subTitle="Update all required information" title="E-mail"
-                                            icon={<WechatOutlined style={{ fontSize: 30 }} />}
-                                            tailContent={<p>Please choose the services</p>}
-                                            description={<RenderChat {...props} />}
-                                        />
+                                        <Tabs.TabPane tab="Chat" key="chat"  >
+                                            <RenderChat {...props} />
+                                        </Tabs.TabPane>
+
                                     }
                                     {
                                         !state.channel.isPhoneSelected &&
-                                            !state.channel.isEmailSelected &&
-                                            !state.channel.isChatSelected ?
-                                            <Step icon={<ApartmentOutlined style={{ fontSize: 30 }} />} status="error" title="Choose atleast 1 service" description={
-                                                <Card>
-                                                    <Result title="Choose atleast 1 services to proceed further" status="500" />
-                                                </Card>}
-                                            /> :
+                                        !state.channel.isEmailSelected &&
+                                        !state.channel.isChatSelected &&
+                                        <Tabs.TabPane tab="Chat" key="chat"  >
+                                            <Result title="Choose atleast 1 services to proceed further" status="500" />
+                                        </Tabs.TabPane>
 
-                                            <Step status="finish" title="Proceed" description={
-                                                <Card>
-                                                    <Space>
-                                                        <Button type="ghost" size='large' onClick={() => prev()} >Previous</Button>
-                                                        <Button type="primary" htmlType="submit" size='large'>Next</Button>
-                                                    </Space>
-                                                </Card>
-                                            } />
+
                                     }
-                                </Steps>
+                                </Tabs>
+
+                                <Card>
+                                    <Space>
+                                        <Button type="ghost" size='large' onClick={() => prev()} >Previous</Button>
+                                        <Button type="primary" htmlType="submit" size='large'>Next</Button>
+                                    </Space>
+                                </Card>
                             </Form>
                         </Col>
                     </Row>
@@ -151,10 +159,12 @@ const ChooseChannel = (props) => {
 
 
 const RenderChat = (props) => {
-    const { next, state, setState, prev } = props
-    const [st, setst] = useState({
-        intentSelected:"greetings",
 
+    const { next, state, setState, prev } = props
+    
+    const [st, setst] = useState({
+        intentSelected: "greetings",
+        intent:null,
         intents: [
             { "label": "Greetings", "value": "greetings" },
             { "label": "Welcome", "value": "welcome" },
@@ -162,7 +172,8 @@ const RenderChat = (props) => {
             { "label": "Operator", "value": "operator" },
             { "label": "Renewal", "value": "renewal" },
         ],
-        utterances:[
+        utterance:null,
+        utterances: [
             { "intents": "greetings", "value": "Hello there" },
             { "intents": "greetings", "value": "How are you" },
             { "intents": "greetings", "value": "How may i help" },
@@ -174,26 +185,36 @@ const RenderChat = (props) => {
             { "intents": "renewal", "value": "remind me for next" },
         ]
     })
-   
+
     return (
         <Row>
             <Col span={24}>
                 <Card title="Intents / Category">
                     <Row gutter={[16, 16]}>
                         <Col span={10}>
-                            <p>Manage Intents</p>
-                            <Input placeholder='Add Intents' />
+                            <p>Add Intents</p>
+                            <Space>
+                            <Input value={st.intent} placeholder='Add Intents' onChange={(e)=>setst({
+                                ...st,
+                                intent:e.target.value,                              
+                                })} />
+                            <Button type='primary' icon={< PlusOutlined/>} onClick={()=>{
+                                let {intents}=st;
+                                intents.push( { "label": st.intent, "value": st.intent })
+                                setst({...st,intents,intentSelected:st.intent, intent:null  })
+                            }}  />
+                            </Space>
                             <Divider > Available intents </Divider>
-                            <List                                
+                            <List
                                 itemLayout='horizontal'
                                 bordered
                                 dataSource={st.intents}
                                 renderItem={item => (
-                                    <List.Item onClick={()=> setst({...st,intentSelected:item.value}) } 
-                                    style={{
-                                        cursor:'pointer',
-                                        background:st.intentSelected === item.value ? '#aaa5fa' : '#fff'
-                                        
+                                    <List.Item onClick={() => setst({ ...st, intentSelected: item.value })}
+                                        style={{
+                                            cursor: 'pointer',
+                                            background: st.intentSelected === item.value ? '#aaa5fa' : '#fff'
+
                                         }}>
                                         <Typography.Text><UnorderedListOutlined /> {item.label}</Typography.Text>
                                     </List.Item>
@@ -202,20 +223,25 @@ const RenderChat = (props) => {
                         </Col>
                         <Col span={14}>
                             <p>Utterncases for <em>{st.intentSelected}</em></p>
+                            <Space>
                             <Input placeholder={`Add Utterances for ${st.intentSelected}`}
-                            
-                            onChange={(e)=> {
-                                let  {utterances} =st
-                                utterances.push({intents:st.intentSelected, value:e.target.value })
-                                setst({...st,utterances})
-                            }}
+                                onChange={(e)=>setst({
+                                ...st,
+                                utterance:e.target.value,                              
+                                })}
                             />
-                              <Divider > Available Utterances </Divider>
-                            <List           
-                                header={<p>Utterances of {st.intentSelected} </p>}                     
+                             <Button type='primary' icon={< PlusOutlined/>} onClick={()=>{
+                                let {utterances}=st;                                
+                                utterances.push( { "intents": st.intentSelected, "value": st.utterance })
+                                setst({...st,utterances,utterance:null})
+                            }}  />
+                            </Space>
+                            <Divider > Available Utterances </Divider>
+                            <List
+                                header={<p>Utterances of {st.intentSelected} </p>}
                                 itemLayout='horizontal'
                                 bordered
-                                dataSource={st.utterances.filter((rec)=>rec.intents==st.intentSelected)}
+                                dataSource={st.utterances.filter((rec) => rec.intents == st.intentSelected)}
                                 renderItem={item => (
                                     <List.Item>
                                         <Typography.Text>{item.value}</Typography.Text>
@@ -251,12 +277,28 @@ const RenderEmail = (props) => {
         </Row>
     )
 }
+
 const RenderPhone = (props) => {
     const { next, state, setState, prev } = props
+
     return (
         <Row>
             <Col span={24}>
                 <Card>
+                    <Form.Item name={["channel", "phone", "services"]} label="Services you want">
+                        <Row style={{marginBottom:20}}>
+                            <Col span={8}>Outbound</Col>
+                            <Col span={16}><Switch title='Outbound' defaultChecked /></Col>
+
+                        </Row>
+                        <Row>
+                            <Col span={8}>Inbound</Col>
+                            <Col span={16}><Switch title='Inbound' defaultChecked /></Col>
+
+                        </Row>
+                    
+               
+                    </Form.Item>
                     <Form.Item name={["channel", "phone", "numberType"]} label="Which number do you want to use ?">
                         <Radio.Group>
                             <Radio.Button
