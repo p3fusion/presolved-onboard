@@ -10,6 +10,14 @@
       "StackName": "amplify-presolvedonboard-dev-181720",
       "StackId": "arn:aws:cloudformation:us-east-1:039289871235:stack/amplify-presolvedonboard-dev-181720/561a3600-59e3-11ed-bd08-0ee355d15175",
       "AmplifyAppId": "d2xim6j4s53l9a"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2xim6j4s53l9a",
+          "type": "manual"
+        }
+      }
     }
   }
 }

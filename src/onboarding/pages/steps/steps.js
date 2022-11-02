@@ -3,7 +3,6 @@ import { Content } from 'antd/lib/layout/layout';
 import React, { useState } from 'react';
 import SelectAccount from './selectAccount';
 import ChooseChannel from './chooseChannel';
-
 import ConfigureCases from './configureCases';
 import Review from './review';
 
