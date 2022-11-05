@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import  stepsSlice  from './reducers/steps';
 import userSlice  from './reducers/user'
 import promise from 'redux-promise';
 import { combineReducers, compose } from 'redux';
@@ -15,6 +16,7 @@ export const store = configureStore({
         user:userSlice,
         //channels:channelsReducer,
         config:configReducer,
+        steps:stepsSlice
     }),
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false

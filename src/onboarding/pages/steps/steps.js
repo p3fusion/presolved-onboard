@@ -22,11 +22,13 @@ const OnBoardSteps = () => {
       isEmailSelected: false,
       isChatSelected: false,
       phone: {
+        isInbound: true,
+        isOutbound: true,
         numberType:"existing",
         isnew:false,
-        new:"tfn",        
+        new:"tfn",  
         phoneNumberOptions: [
-          { label: 'Use my old phone number', value: 'oldNumber' },
+          { label: 'Use your existing phone number', value: 'oldNumber' },
           { label: 'Allocate new number', value: 'newNumber' }
         ],
         phoneNumberSubOptions: [
@@ -63,7 +65,7 @@ const OnBoardSteps = () => {
     },
     {
       title: 'Review',
-      content: <Review />,
+      content: <Review state={state} setState={setState} prev={prev} />,
     },
   ];
 
