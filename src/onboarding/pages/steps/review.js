@@ -10,10 +10,10 @@ const Review = (props) => {
     const [showStep3Description, setShowStep3Description] = useState(false);
     const step1 = steps.step1?.values?.account;
     const step2 = steps.step2?.data;
-    const step3 = steps?.step3?.st;
+    
     const [step1Data, setStep1Data] = useState([]);
     const [step2Data, setStep2Data] = useState([]);
-    const [step3Data, setStep3Data] = useState([]);
+    
 
     const { prev, state, setState } = props
 
@@ -47,18 +47,8 @@ const Review = (props) => {
             NewNumberType: step2.EnablePhoneChannel && step2.channel.phone.numberType == "newnumber" ? step2.channel.phone.new : "",
             NumberOfLines: step2.EnablePhoneChannel && step2.channel.phone.new == "TFN" ? step2.channel.phone.tfn : "",
             DIDNumber: step2.EnablePhoneChannel && step2.channel.phone.new == "DID" ? step2.channel.phone.did : "",
-            Intents: step2.EnableChatChannel ? step2.intents : [],
-            Utterances: step2.EnableChatChannel ? step2.utterances : [],
         }
         setStep2Data(step2Data);
-    }
-
-    const handleShowStep3Description = () => {
-        setShowStep3Description(true);
-        let step3Data = {
-            SelectedTemplate: step3.name,
-        }
-        setStep3Data(step3Data);
     }
 
 
@@ -70,10 +60,7 @@ const Review = (props) => {
         if (steps.step2.length !== 0) {
             handleShowStep2Description();
         }
-        if (steps.step3.length !== 0) {
-            handleShowStep3Description();
-        }
-
+       
     }, []);
 
 
@@ -111,26 +98,10 @@ const Review = (props) => {
                             {step2Data.NewNumberType !== "" && <Descriptions.Item label="New Number Type">{step2Data.NewNumberType}</Descriptions.Item>}
                             {step2Data.NumberOfLines !== "" && <Descriptions.Item label="Number Of Lines">{step2Data.NumberOfLines}</Descriptions.Item>}
                             {step2Data.DIDNumber !== "" && <Descriptions.Item label="DID Number" >{step2Data.DIDNumber}</Descriptions.Item>}
-                            {step2Data.Intents !== "" && <Descriptions.Item label="Intents" >
-                                <List
-                                    dataSource={step2Data.Intents}
-                                    renderItem={(item) => (
-                                        <List.Item>
-                                            {item.label}
-                                        </List.Item>
-                                    )}
-                                />
-                            </Descriptions.Item>}
                         </Descriptions>
                     </div>
                 }
-                <br />
-                {showStep3Description &&
-                    <Descriptions title="Template" bordered column={1}>
-                        {step3Data.SelectedTemplate !== "" && <Descriptions.Item label="Name">{step3Data.SelectedTemplate}</Descriptions.Item>}
-                    </Descriptions>
-                }
-            </Card>
+                          </Card>
             <Card>
                 <Space>
                     <Button type="ghost" size='large' onClick={() => prev()} >Previous</Button>

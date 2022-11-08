@@ -12,6 +12,7 @@ const ConfigureCases = (props) => {
     const dispatch = useDispatch()
     const [st, setSt] = useState(null);
    
+    
     return (
         <div className='template-section'>
         
@@ -25,7 +26,8 @@ const ConfigureCases = (props) => {
                                 return {
                                     label: template.name, key: template.id
                                 }
-                            })}
+                            })
+                        }
                             onSelect={(e) => {
                                 let record = payload.templates.filter((rec) => rec.id == e.key)
                                 setSt(record[0])
@@ -55,7 +57,7 @@ const ConfigureCases = (props) => {
                         <Button type="ghost" size='large' onClick={() => prev()} >Previous</Button>
                         <Button type="primary"  size='large' 
                         onClick={() => {
-                            dispatch(updateStep3({ st })),
+                            dispatch(updateStep3(payload.templates)),
                             next()
                         }}
                         >Next</Button>
