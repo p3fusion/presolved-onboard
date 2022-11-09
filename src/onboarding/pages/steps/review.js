@@ -7,8 +7,8 @@ const Review = (props) => {
     const steps = useSelector((state) => state.steps)
     const [showStep1Description, setShowStep1Description] = useState(false);
     const [showStep2Description, setShowStep2Description] = useState(false);
-    const [showStep3Description, setShowStep3Description] = useState(false);
-    const step1 = steps.step1?.values?.account;
+    
+    const step1 = steps.step1;
     const step2 = steps.step2?.data;
     
     const [step1Data, setStep1Data] = useState([]);
