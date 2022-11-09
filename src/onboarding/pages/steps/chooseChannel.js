@@ -13,8 +13,7 @@ const ChooseChannel = (props) => {
     const dispatch = useDispatch()
     const { next, state, setState, prev } = props
     const [tab, activeTab] = useState("phone")
-
-
+    console.log(state.step1);
 
     const onFinish = (values) => {
         let data = {
@@ -400,7 +399,7 @@ const RenderPhone = (props) => {
                                         }
                                     }
                                 })}
-                                type='primary' value="existing">Use my old phone number</Radio.Button >
+                                type='primary' value="existing">Use your existing phone number</Radio.Button >
                             <Radio.Button
                                 onChange={() => setState({
                                     ...state,

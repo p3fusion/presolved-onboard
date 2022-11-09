@@ -1,4 +1,4 @@
-import { HomeOutlined, LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import { HomeOutlined, LaptopOutlined, NotificationOutlined, UserOutlined,MenuOutlined } from '@ant-design/icons';
 import { Button, Layout, Menu, Typography } from 'antd';
 import React from 'react';
 import logo from './assets/images/logo.png';
@@ -8,6 +8,7 @@ import { Link, Router } from '@gatsbyjs/reach-router';
 import 'antd/dist/antd.less';
 import './assets/style/index.less';
 import LandingContent from './content';
+import NewPage from './new';
 
 const { Header, Footer } = Layout;
 const LandingPage = () => {
@@ -28,7 +29,7 @@ const LandingPage = () => {
         <Layout className='signup_page'>
             <Header className="main-header">
                 <div className="logo"><a href="/site"><img src={logo} height={50} /></a></div>
-                <Menu theme="light" mode="horizontal" defaultSelectedKeys={['home']} items={headerMenu} />
+                <Menu theme="light" mode="horizontal" defaultSelectedKeys={['home']} items={headerMenu} overflowedIndicator={<MenuOutlined />} />
             </Header>
 
             <Header className="menu-header">
@@ -36,7 +37,7 @@ const LandingPage = () => {
             </Header>
             <section className='banner'>
                 <div className='content'>
-                    <Typography.Title level={2}>Amazon Connect</Typography.Title>
+                    {/* <Typography.Title level={2}>Amazon Connect</Typography.Title>
                     <Typography.Title level={4}>Easy-to-use cloud customer service contact center
                     </Typography.Title>
                     <div className='banner-button'>
@@ -46,11 +47,11 @@ const LandingPage = () => {
                         <Button type='link' className='learnmore'>
                             <Link to="/signup"> Learn more</Link>
                         </Button>
-                    </div>
+                    </div> */}
                 </div>
             </section>
             <Router>
-                <LandingContent path="/" />
+                <NewPage path="/" />
             </Router>
             <Footer style={{ textAlign: 'center', }}>Presolved  ©2018</Footer>
         </Layout>
