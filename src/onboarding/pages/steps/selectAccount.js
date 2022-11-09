@@ -7,12 +7,16 @@ import ils1 from '../../assets/images/illustrations/signup-2.svg'
 import presolvedLogo from '../../assets/images/presolved-small-logo.png'
 import region from '../../assets/images/region.png'
 import { payload } from '../payload';
+import { useDispatch } from 'react-redux';
+import { updateStep1 } from '../../store/reducers/steps';
 
 const SelectAccount = (props) => {
 
+    const dispatch = useDispatch()
     const { next, state, setState } = props
     const onFinish = (values) => {
-        setState({ ...state, step1: values });
+        // setState({ ...state, step1: values });
+        dispatch(updateStep1({ values }))
         next();
     };
     const regions=payload.regions
@@ -114,22 +118,22 @@ const SelectAccount = (props) => {
                                     <Card style={{}}>
                                         <Form.Item
                                             label="Tenant Name"
-                                            name={['account', 'presolvedAccountName', 'tenant']}
+                                            name={['account', 'presolvedAccount', 'tenant']}
                                             rules={[{ required: true, message: 'Please input your Tenant Name!' }]}
                                         >
                                             <Input />
                                         </Form.Item>
-                                        <Form.Item label="Account Name" name="presolvedAccountName" rules={[{ required: true, message: 'Please input your Account Name!' }]}>
+                                        <Form.Item label="Account Name" name={['account', 'presolvedAccount', 'accountName']} rules={[{ required: true, message: 'Please input your Account Name!' }]}>
                                             <Input />
                                         </Form.Item>
-                                        <Form.Item label="Email Id" name="presolvedEmailId" rules={[{ required: true, message: 'Please input your email id!' }]} >
+                                        <Form.Item label="Email Id" name={['account', 'presolvedAccount', 'emailID']} rules={[{ required: true, message: 'Please input your email id!' }]} >
                                             <Input />
                                         </Form.Item>
                                         <section className='region-map' style={{background: `url("${region}") right  no-repeat`,backgroundSize:'contain'}}>
                                            
                                            <Form.Item
                                                label="Choose Region"
-                                               name={['account', 'selfManagedAccount', 'region']}
+                                               name={['account', 'presolvedAccount', 'region']}
                                                rules={[{ required: true, message: 'Please choose the preferred region!' }]}
                                            >
                                                <Select options={regions} allowClear showAction={true}>

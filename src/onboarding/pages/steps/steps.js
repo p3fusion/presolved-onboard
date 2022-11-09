@@ -22,11 +22,13 @@ const OnBoardSteps = () => {
       isEmailSelected: false,
       isChatSelected: false,
       phone: {
-        numberType:"existing",
-        isnew:false,
-        new:"tfn",        
+        isInbound: true,
+        isOutbound: true,
+        numberType: "existing",
+        isnew: false,
+        new: "tfn",
         phoneNumberOptions: [
-          { label: 'Use my old phone number', value: 'oldNumber' },
+          { label: 'Use your existing phone number', value: 'oldNumber' },
           { label: 'Allocate new number', value: 'newNumber' }
         ],
         phoneNumberSubOptions: [
@@ -35,7 +37,29 @@ const OnBoardSteps = () => {
         ]
       },
       email: {},
-      chat: {},
+      chat: {
+        intentSelected: "greetings",
+        intent: null,
+        utterance: null,
+        intents: [
+          { "label": "Greetings", "value": "greetings" },
+          { "label": "Welcome", "value": "welcome" },
+          { "label": "Inquiry", "value": "inquiry" },
+          { "label": "Operator", "value": "operator" },
+          { "label": "Renewal", "value": "renewal" },
+        ],
+        utterances: [
+          { "intents": "greetings", "value": "Hello there" },
+          { "intents": "greetings", "value": "How are you" },
+          { "intents": "greetings", "value": "How may i help" },
+          { "intents": "welcome", "value": "Welcome" },
+          { "intents": "welcome", "value": "Good day" },
+          { "intents": "welcome", "value": "Its good to see you" },
+          { "intents": "renewal", "value": "When is next due date" },
+          { "intents": "renewal", "value": "want to renew" },
+          { "intents": "renewal", "value": "remind me for next" },
+        ]
+      },
 
     },
     step1: {},
@@ -59,11 +83,11 @@ const OnBoardSteps = () => {
     },
     {
       title: 'Configure cases',
-      content: <ConfigureCases state={state} setState={setState} next={next} prev={prev}  />,
+      content: <ConfigureCases state={state} setState={setState} next={next} prev={prev} />,
     },
     {
       title: 'Review',
-      content: <Review />,
+      content: <Review state={state} setState={setState} prev={prev} />,
     },
   ];
 

@@ -184,11 +184,11 @@ const CreateNewTemplate = (props) => {
     return (
         <Content className="dashboard">
             <section className="new-template">
-                <Row gutter={[16, 16]} style={{ marginTop: 30 }}>
+                {/* <Row gutter={[16, 16]} style={{ marginTop: 30 }}>
                     <Col span={24}>
                         <PageHeader ghost={false} className="site-page-header" onBack={() => window.history.back()} title="Create a new template" subTitle=" New Interaction" />
                     </Col>
-                </Row>
+                </Row> */}
                 <Form name="task" form={form} layout="vertical" onFinish={onFinish}  >
                     <Row gutter={[16, 16]} style={{ marginTop: 30 }}>
                         <Col span={24}>
@@ -238,13 +238,13 @@ const CreateNewTemplate = (props) => {
 
                         )}
 
-                        <Col span={24} >
+                        {/* <Col span={24} >
                             <Card>
                                 <Form.Item>
                                     <Button type='primary' htmlType='submit'>Save Template</Button>
                                 </Form.Item>
                             </Card>
-                        </Col>
+                        </Col> */}
 
                     </Row>
                 </Form>
