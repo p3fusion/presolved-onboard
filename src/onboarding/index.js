@@ -3,8 +3,9 @@ import React, { Suspense } from "react";
 import { Provider } from 'react-redux';
 import { store } from './store';
 import Suspence from "../suspence"
-const OnBoardPage = React.lazy(() => import('./pages/onboard-page'));
+//const OnBoardPage = React.lazy(() => import('./pages/onboard-page'));
 
+const OnBoardPage = React.lazy(() => import('./new/signup'));
 
 const OnboardAddIndexPage = () => {
     return (
