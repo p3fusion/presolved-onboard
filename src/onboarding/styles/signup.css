@@ -1,0 +1,156 @@
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .imageLayoutBig{
+        display: none;
+    }
+    .imageLayoutSmall{
+        display: block;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: #0E65D7;
+        border: 10px solid #FFFFFF;
+        justify-content: flex-end;
+        flex: none;
+        order: 0;
+        align-self: stretch;
+        flex-grow: 0;
+        padding: 5%;
+        height: 100%;
+        
+    }
+
+    .logo {
+    
+        /* flex: 1.625; */
+        margin-left: 25%;
+        width: 50%;
+        height: 50%;
+        object-fit: cover;
+        object-position: bottom;
+    
+    
+    }
+    
+    .container {
+        height: 100%;
+        width: 100%;
+    }
+    
+    .formLayout {
+        border: 10px solid #FFFFFF;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        display: flex;
+        justify-content: flex-start;
+        padding:3%
+        
+    }
+    
+    .smallText {
+        font-family: "Abyssinica SIL";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 15px;
+    }
+    
+    .title {
+        font-family: "Abel";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 35px;
+        line-height: 47px;
+    
+    }
+    
+  }
+
+  @media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .imageLayoutSmall{
+        display: none;
+    }
+    .imageLayoutBig {
+        display: block;
+        flex-direction: column;
+        align-items: center;
+        width: 50%;
+        background: #0E65D7;
+        border: 10px solid #FFFFFF;
+        justify-content: flex-end;
+        flex: none;
+        order: 0;
+        align-self: stretch;
+        flex-grow: 0;
+        padding: 5%;
+        height: 100%;
+        position: absolute;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    
+    .logo {
+    
+        /* flex: 1.625; */
+        margin-left: 25%;
+        width: 50%;
+        height: 50%;
+        object-fit: cover;
+        object-position: bottom;
+    
+    
+    }
+    
+    .vector {
+        /* flex: 1.049; */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: bottom;
+    
+    }
+    
+    .container {
+        height: 100%;
+        width: 100%;
+    }
+    
+    .formLayout {
+        border: 10px solid #FFFFFF;
+        flex-direction: column;
+        align-items: stretch;
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        margin-left: 50%;
+        display: flex;
+        justify-content: center;
+        padding-right: 15%;
+        padding-left: 1%;
+        margin-top: 2%;
+        margin-bottom: 2%;
+    }
+    
+    .smallText {
+        font-family: "Abyssinica SIL";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 25px;
+    }
+    
+    .title {
+        font-family: "Abel";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 45px;
+        line-height: 57px;
+    
+    }
+    
+  }
