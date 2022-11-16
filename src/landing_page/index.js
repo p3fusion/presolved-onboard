@@ -37,7 +37,7 @@ const LandingPage = () => {
             </Header>
             <section className='banner'>
                 <div className='content'>
-                    {/* <Typography.Title level={2}>Amazon Connect</Typography.Title>
+                     <Typography.Title level={2}>Amazon Connect</Typography.Title>
                     <Typography.Title level={4}>Easy-to-use cloud customer service contact center
                     </Typography.Title>
                     <div className='banner-button'>
@@ -47,11 +47,11 @@ const LandingPage = () => {
                         <Button type='link' className='learnmore'>
                             <Link to="/signup"> Learn more</Link>
                         </Button>
-                    </div> */}
+                    </div> 
                 </div>
             </section>
             <Router>
-                <NewPage path="/" />
+                <LandingContent path="/" />
             </Router>
             <Footer style={{ textAlign: 'center', }}>Presolved  ©2018</Footer>
         </Layout>
