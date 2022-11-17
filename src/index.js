@@ -8,6 +8,7 @@ import Suspence from "./suspence";
 
 const OnboardAddIndexPage = React.lazy(() => import('./onboarding'));
 const LandingPage = React.lazy(() => import('./landing_page'));
+const PresolvedIndexPage = React.lazy(() => import('./mainPage'));
 const root =  document.getElementById("root");
 
 Amplify.configure(awsExports);
@@ -18,8 +19,8 @@ ReactDOM.render(
     <Suspense fallback={<Suspence/>}>
       <DefaultErrorBoundary>
         <Router basepath="/">
-          <LandingPage path="/*" />
-          <OnboardAddIndexPage path="/signup/*" />
+          <PresolvedIndexPage path="/*" />
+          <OnboardAddIndexPage path="/test" />
         </Router>
       </DefaultErrorBoundary>
     </Suspense>
