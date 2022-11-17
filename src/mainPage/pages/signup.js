@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { HomeOutlined, LaptopOutlined, NotificationOutlined, UserOutlined, MenuOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Layout, Menu, Row, Typography, Col, Divider, Card, Form, Input, notification, Alert } from 'antd';
+import { Breadcrumb, Button, Layout, Menu, Row, Typography, Col, Divider, Card, Form, Input, notification, Alert, Select } from 'antd';
 import logo from '../assets/images/logo-white.png';
 import { Link, Router } from '@gatsbyjs/reach-router';
 import 'antd/dist/antd.less';
@@ -11,6 +11,7 @@ import * as mutations from '../../graphql/mutations'
 import { listTenants, getTenant } from '../../graphql/queries'
 import { API } from 'aws-amplify';
 const { Header, Content, Footer } = Layout;
+import { payload } from '../payload';
 
 const PresolvedSignupPage = () => {
 
@@ -24,6 +25,8 @@ const PresolvedSignupPage = () => {
 
   })
 
+  const regions = payload.regions
+
   useEffect(() => { }, [])
 
 
@@ -36,6 +39,7 @@ const PresolvedSignupPage = () => {
       email: e.email,
       mobile: e.mobile,
       company: e.company,
+      region: e.region
     }
     createTenant(newTenant)
 
@@ -196,6 +200,21 @@ const PresolvedSignupPage = () => {
                       borderColor: '#0E65D7',
                       lineHeight: 1
                     }} />
+                </Form.Item>
+                <Form.Item
+                  label="Choose Region"
+                  name='region'
+                  rules={[{ required: true, message: 'Please choose the preferred region!' }]}
+                >
+                  <Select
+                    options={regions}
+                    allowClear
+                    showAction={true}
+                    style={{
+                      outlineColor: '#0E65D7',
+                    }}
+                  >
+                  </Select>
                 </Form.Item>
                 <Form.Item>
                   <Button type="primary" size='large' htmlType="submit" style={{ width: '100%' }}>
