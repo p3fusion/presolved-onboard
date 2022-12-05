@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { HomeOutlined, LaptopOutlined, NotificationOutlined, UserOutlined, MenuOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Layout, Menu, Row, Typography, Col, Divider, Card, Form, Input, notification, Alert } from 'antd';
+import { Breadcrumb, Button, Layout, Menu, Row, Typography, Col, Divider, Card, Form, Input, notification, Alert, Select } from 'antd';
 import logo from '../assets/images/logo-white.png';
 import { Link, Router } from '@gatsbyjs/reach-router';
 import 'antd/dist/antd.less';
@@ -11,6 +11,7 @@ import * as mutations from '../../graphql/mutations'
 import { listTenants, getTenant } from '../../graphql/queries'
 import { API } from 'aws-amplify';
 const { Header, Content, Footer } = Layout;
+import { payload } from '../payload';
 
 const PresolvedSignupPage = () => {
 
@@ -24,6 +25,8 @@ const PresolvedSignupPage = () => {
 
   })
 
+  const regions = payload.regions
+
   useEffect(() => { }, [])
 
 
@@ -36,6 +39,7 @@ const PresolvedSignupPage = () => {
       email: e.email,
       mobile: e.mobile,
       company: e.company,
+      region: e.region
     }
     createTenant(newTenant)
 
@@ -120,15 +124,24 @@ const PresolvedSignupPage = () => {
                 }}
                 autoComplete="off"
               >
-                <Typography.Title level={1}>Signup to presolved</Typography.Title>
+                <Typography.Title level={1}>Signup</Typography.Title>
                 <Form.Item
-                  label="Please enter your full name"
+                  label="Full Name"
                   name='name'
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your name!',
+                      message: 'Please provide your full name',
                     },
+                    {
+                      pattern: /^([a-zA-Z]+\s)*[a-zA-Z]+$/, message: "Enter valid characters"
+                    },
+                    {
+                      min: 5, message: 'Full Name must be minimum 3 characters.'
+                    },
+                    {
+                      max: 256, message: 'Full Name must be less than 256 characters.'
+                    }
                   ]}
                 >
                   <Input
@@ -145,8 +158,9 @@ const PresolvedSignupPage = () => {
                   name='email'
                   rules={[
                     {
+                      type: 'email',
                       required: true,
-                      message: 'Please input your email address!',
+                      message: 'Please provide valid email address',
                     },
                   ]}
                 >
@@ -165,8 +179,11 @@ const PresolvedSignupPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your company name!',
+                      message: 'Please provide your company name',
                     },
+                    {
+                      pattern: /^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+/, message: "Enter valid characters"
+                    }
                   ]}
                 >
                   <Input
@@ -184,8 +201,14 @@ const PresolvedSignupPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your phone number!',
+                      message: 'Please provide valid phone number',
                     },
+                    {
+                      pattern: /^[0-9-]*$/, message: "Enter valid characters"
+                    },
+                    {
+                      max: 10, message: 'Phone number must have 10 digits'
+                    }
                   ]}
                 >
                   <Input
@@ -196,6 +219,21 @@ const PresolvedSignupPage = () => {
                       borderColor: '#0E65D7',
                       lineHeight: 1
                     }} />
+                </Form.Item>
+                <Form.Item
+                  label="Choose Region"
+                  name='region'
+                  rules={[{ required: true, message: 'Please choose the preferred region' }]}
+                >
+                  <Select
+                    options={regions}
+                    allowClear
+                    showAction={true}
+                    style={{
+                      outlineColor: '#0E65D7',
+                    }}
+                  >
+                  </Select>
                 </Form.Item>
                 <Form.Item>
                   <Button type="primary" size='large' htmlType="submit" style={{ width: '100%' }}>
