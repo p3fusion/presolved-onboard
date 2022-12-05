@@ -124,15 +124,24 @@ const PresolvedSignupPage = () => {
                 }}
                 autoComplete="off"
               >
-                <Typography.Title level={1}>Signup to presolved</Typography.Title>
+                <Typography.Title level={1}>Signup</Typography.Title>
                 <Form.Item
-                  label="Please enter your full name"
+                  label="Full Name"
                   name='name'
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your name!',
+                      message: 'Please provide your full name',
                     },
+                    {
+                      pattern: /^([a-zA-Z]+\s)*[a-zA-Z]+$/, message: "Enter valid characters"
+                    },
+                    {
+                      min: 5, message: 'Full Name must be minimum 3 characters.'
+                    },
+                    {
+                      max: 256, message: 'Full Name must be less than 256 characters.'
+                    }
                   ]}
                 >
                   <Input
@@ -149,8 +158,9 @@ const PresolvedSignupPage = () => {
                   name='email'
                   rules={[
                     {
+                      type: 'email',
                       required: true,
-                      message: 'Please input your email address!',
+                      message: 'Please provide valid email address',
                     },
                   ]}
                 >
@@ -169,8 +179,11 @@ const PresolvedSignupPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your company name!',
+                      message: 'Please provide your company name',
                     },
+                    {
+                      pattern: /^[.@&]?[a-zA-Z0-9 ]+[ !.@&()]?[ a-zA-Z0-9!()]+/, message: "Enter valid characters"
+                    }
                   ]}
                 >
                   <Input
@@ -188,8 +201,14 @@ const PresolvedSignupPage = () => {
                   rules={[
                     {
                       required: true,
-                      message: 'Please input your phone number!',
+                      message: 'Please provide valid phone number',
                     },
+                    {
+                      pattern: /^[0-9-]*$/, message: "Enter valid characters"
+                    },
+                    {
+                      max: 10, message: 'Phone number must have 10 digits'
+                    }
                   ]}
                 >
                   <Input
@@ -204,7 +223,7 @@ const PresolvedSignupPage = () => {
                 <Form.Item
                   label="Choose Region"
                   name='region'
-                  rules={[{ required: true, message: 'Please choose the preferred region!' }]}
+                  rules={[{ required: true, message: 'Please choose the preferred region' }]}
                 >
                   <Select
                     options={regions}
